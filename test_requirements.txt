@@ -1,4 +1,4 @@
 pyvows
 coverage
 mock
-suds
+suds-py3
