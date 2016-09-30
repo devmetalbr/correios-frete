@@ -11,6 +11,7 @@
 
 from .constants import CAIXA_PACOTE
 from .item import Item
+from functools import reduce
 
 
 class Package(object):

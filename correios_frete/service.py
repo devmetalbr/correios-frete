@@ -25,7 +25,7 @@ class Service(object):
     msg_erro                = None
 
     def __init__(self, **kwargs):
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if not hasattr(self.__class__, k):
                 raise TypeError
 
