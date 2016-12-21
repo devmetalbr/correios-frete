@@ -2,3 +2,5 @@
 dist
 correios_frete.egg-info/
 .coverage
+/.idea/
+

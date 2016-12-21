@@ -88,7 +88,7 @@ class ClientVows(Vows.Context):
                 def topic(self):
                     cep_origem = '00000-000'
                     client = Client(cep_origem=cep_origem)
-                    client._ws_client = Mock()
+                    client.ws_client = Mock()
 
                     return client.ws_client
 

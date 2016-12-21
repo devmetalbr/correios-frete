@@ -33,6 +33,6 @@ setup(
         'Programming Language :: Python',
     ],
     install_requires=[
-        'suds-py3'
+        'async-suds'
     ]
 )

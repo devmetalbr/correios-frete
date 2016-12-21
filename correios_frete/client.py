@@ -9,7 +9,7 @@
 # Copyright (c) 2013 Adones Cunha adonescunha@gmail.com
 
 
-from suds.client import Client as SudsClient
+from asyncsuds.client import Client as SudsClient
 
 from .constants import WSDL_URL
 from .service import Service
@@ -33,13 +33,11 @@ class Client(object):
         self.valor_declarado = valor_declarado
         self.mao_propria = mao_propria
         self.aviso_recebimento = aviso_recebimento
+        self.ws_client = None
 
-    @property
-    def ws_client(self):
-        if not hasattr(self, '_ws_client'):
-            self._ws_client = SudsClient(WSDL_URL)
-
-        return self._ws_client
+    async def connect(self):
+        self.ws_client = SudsClient(WSDL_URL)
+        await self.ws_client.connect()
 
     def build_web_service_call_args(self, package, cep_destino, *services):
         return (
@@ -59,9 +57,9 @@ class Client(object):
             self.aviso_recebimento # sCdAvisoRecebimento
         )
 
-    def call_web_service(self, method_name, package, cep_destino, *services):
+    async def call_web_service(self, method_name, package, cep_destino, *services):
         args = self.build_web_service_call_args(package, cep_destino, *services)
-        result = getattr(self.ws_client.service, method_name)(*args)
+        result = await getattr(self.ws_client.service, method_name)(*args)
 
         return [Service.create_from_suds_object(result.Servicos[0][i])
                 for i in range(len(result.Servicos[0]))]
